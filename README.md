@@ -84,6 +84,16 @@ yarn start
 
 This will run both the server and client applications concurrently.
 
+## API Documentation
+The API is documented using Swagger. Once the server is running, you can access the Swagger UI to view and interact with the API documentation.
+
+##  Accessing Swagger UI
+To view the API documentation in Swagger UI:
+
+Start the server using Docker.
+Open your browser and navigate to http://localhost:5000/api-docs.
+This will open the Swagger UI where you can explore and test the available API endpoints.
+
 ## Code Formatting
 
 This project uses Prettier for code formatting. To format the codebase, run:
