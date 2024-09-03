@@ -1,0 +1,28 @@
+{
+  "name": "mern-content-management",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "workspaces": {"packages":[
+    "app/server",
+    "app/client"
+  ]},
+  "scripts": {
+    "start": "concurrently \"yarn workspace server dev\" \"yarn workspace client start\"",
+    "server": "yarn workspace server dev",
+    "client": "yarn workspace client start",
+    "docker:server": "export $(grep -v '^#' app/server/.env | xargs) && docker compose -f deploy/server/docker-compose.yml up --build -d",
+    "docker:server:down": "export $(grep -v '^#' app/server/.env | xargs) && docker compose -f deploy/server/docker-compose.yml down",
+    "docker:client": "docker compose -f deploy/client/docker-compose.yml up --build -d",
+    "docker:logs:server": "docker compose -f deploy/server/docker-compose.yml logs -f",
+    "docker:logs:client": "docker compose -f deploy/client/docker-compose.yml logs -f",
+    "prettier": "prettier --write ."
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "prettier": "^3.0.0",
+    "@types/node": "^22.5.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
+  }
+}

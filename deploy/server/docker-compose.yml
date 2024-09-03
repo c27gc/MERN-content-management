@@ -1,0 +1,34 @@
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    env_file:
+      - ../../app/server/.env 
+
+  server:
+    build:
+      context: ../../app/server
+      dockerfile: Dockerfile
+    container_name: server
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - NODE_ENV=${NODE_ENV}
+    depends_on:
+      - mongo
+    env_file:
+      - ../../app/server/.env
+
+volumes:
+  mongo-data:
